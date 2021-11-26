@@ -1,39 +1,53 @@
-# Clerk and Next.js Example
+![Logo](public/cover.png)
 
-This example shows how to use [Clerk](https://www.clerk.dev/?utm_source=github&utm_medium=starter_repos&utm_campaign=nextjs_starter) with Next.js. The example features adding sign up, sign in, profile management, and an authenticated API route to your Next.js application.
+# webCodeCamp
 
-## Demo
+A free online web development coding bootcamp 
 
-A hosted demo of this example is available at [clerk-nextjs-example.vercel.app](https://clerk-nextjs-example.vercel.app)
+## Run Locally
 
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/clerkinc/clerk-nextjs-starter&integration-ids=oac_7uYNbc9CdDAZmNqbt3LEkO3a)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+Clone the project
 
 ```bash
-npx create-next-app --example with-clerk with-clerk-app
-# or
-yarn create next-app --example with-clerk with-clerk-app
+  git clone https://github.com/zaidmukaddam/webCodeCamp.git
 ```
 
-To run the example locally you need to:
+Go to the project directory
 
-1. Sign up at [Clerk.dev](https://www.clerk.dev/?utm_source=github&utm_medium=starter_repos&utm_campaign=nextjs_starter).
-2. Go to [Clerk's dashboard](https://dashboard.clerk.dev/?utm_source=github&utm_medium=starter_repos&utm_campaign=nextjs_starter) and create an application.
-3. Set the required Clerk environment variables from your Clerk project as shown at [the example env file](./.env.local.sample).
-4. `yarn` to install the required dependencies.
-5. `yarn dev` to launch the development server.
+```bash
+  cd webCodeCamp
+```
 
-## Learn More
+Install dependencies
 
-To learn more about Clerk.dev and Next.js, take a look at the following resources:
+```bash
+  npm install
+```
 
-- [Quick start](https://docs.clerk.dev/get-started/nextjs?utm_source=github&utm_medium=starter_repos&utm_campaign=nextjs_starter)
-- [Clerk.dev Documentation](https://docs.clerk.dev/?utm_source=github&utm_medium=starter_repos&utm_campaign=nextjs_starter) - learn about Clerk.dev features and API.
-- [Next.js Documentation](https://nextjs.org/docs?utm_source=github&utm_medium=starter_repos&utm_campaign=nextjs_starter) - learn about Next.js features and API.
+Create an .env file in root and add your variables
+
+```
+  NEXT_PUBLIC_CLERK_FRONTEND_API=
+  CLERK_API_KEY=
+  MONGODB_URI=
+```
+
+Start the app
+
+```bash
+  npm run dev
+```
+
+## Tech Stack
+
+- **NextJS**
+
+- **MongoDB**
+
+- **Clerk**
+
+- **Vercel**
+
+## Author
+
+[Zaid Mukaddam](https://www.github.com/zaidmukaddam)

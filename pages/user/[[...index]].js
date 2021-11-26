@@ -1,5 +1,5 @@
-import { UserProfile } from '@clerk/nextjs'
+import { UserProfile } from "@clerk/clerk-react";
 
-const UserProfilePage = () => <UserProfile path="/user" routing="path" />
-
-export default UserProfilePage
+export default function UserProfilePage() {
+  return <UserProfile path="/user" routing="path" />;
+}

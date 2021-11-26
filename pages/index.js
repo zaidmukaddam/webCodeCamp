@@ -1,210 +1,133 @@
-import React from "react";
-import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
-import styles from "../styles/Home.module.css";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
 
-const ClerkFeatures = () => (
-  <Link href="/user">
-    <a className={styles.cardContent}>
-      <img src="/icons/layout.svg" />
-      <div>
-        <h3>Explore features provided by Clerk</h3>
-        <p>
-          Interact with the user button, user profile, and more to preview what
-          your users will see
-        </p>
-      </div>
-      <div className={styles.arrow}>
-        <img src="/icons/arrow-right.svg" />
-      </div>
-    </a>
-  </Link>
-);
+import { useClerk } from "@clerk/clerk-react";
+import { ArrowRight } from "react-feather";
 
-const SignupLink = () => (
-  <Link href="/sign-up">
-    <a className={styles.cardContent}>
-      <img src="/icons/user-plus.svg" />
-      <div>
-        <h3>Sign up for an account</h3>
-        <p>
-          Sign up and sign in to explore all the features provided by Clerk
-          out-of-the-box
-        </p>
-      </div>
-      <div className={styles.arrow}>
-        <img src="/icons/arrow-right.svg" />
-      </div>
-    </a>
-  </Link>
-);
+import courseList from "./../data/course-list.json";
+import YouTubeIcon from "./../public/images/youtube.png";
 
-const apiSample = `import { withSession } from '@clerk/nextjs/api'
+function Home() {
+  const { user } = useClerk();
+  console.log(user);
 
-export default withSession((req, res) => {
-  res.statusCode = 200
-  if (req.session) {
-    res.json({ id: req.session.userId })
-  } else {
-    res.json({ id: null })
-  }
-})`;
-
-// Main component using <SignedIn> & <SignedOut>.
-//
-// The SignedIn and SignedOut components are used to control rendering depending
-// on whether or not a visitor is signed in.
-//
-// https://docs.clerk.dev/frontend/react/signedin-and-signedout
-const Main = () => (
-  <main className={styles.main}>
-    <h1 className={styles.title}>Welcome to your new app</h1>
-    <p className={styles.description}>Sign up for an account to get started</p>
-
-    <div className={styles.cards}>
-      <div className={styles.card}>
-        <SignedIn>
-          <ClerkFeatures />
-        </SignedIn>
-        <SignedOut>
-          <SignupLink />
-        </SignedOut>
-      </div>
-
-      <div className={styles.card}>
-        <Link href="https://dashboard.clerk.dev?utm_source=github&utm_medium=starter_repos&utm_campaign=nextjs_starter">
-          <a target="_blank" rel="noopener" className={styles.cardContent}>
-            <img src="/icons/settings.svg" />
-            <div>
-              <h3>Configure settings for your app</h3>
-              <p>
-                Visit Clerk to manage instances and configure settings for user
-                management, theme, and more
-              </p>
-            </div>
-            <div className={styles.arrow}>
-              <img src="/icons/arrow-right.svg" />
-            </div>
-          </a>
-        </Link>
-      </div>
-    </div>
-
-    <APIRequest />
-
-    <div className={styles.links}>
-      <Link href="https://docs.clerk.dev?utm_source=github&utm_medium=starter_repos&utm_campaign=nextjs_starter">
-        <a target="_blank" rel="noopener" className={styles.link}>
-          <span className={styles.linkText}>Read Clerk documentation</span>
-        </a>
-      </Link>
-      <Link href="https://nextjs.org/docs">
-        <a target="_blank" rel="noopener" className={styles.link}>
-          <span className={styles.linkText}>Read NextJS documentation</span>
-        </a>
-      </Link>
-    </div>
-  </main>
-);
-
-const APIRequest = () => {
-  React.useEffect(() => {
-    if (window.Prism) {
-      window.Prism.highlightAll();
-    }
-  });
-  const [response, setResponse] = React.useState(
-    "// Click above to run the request"
-  );
-  const makeRequest = async () => {
-    setResponse("// Loading...");
-
-    try {
-      const res = await fetch("/api/getAuthenticatedUserId");
-      const body = await res.json();
-      setResponse(JSON.stringify(body, null, "  "));
-    } catch (e) {
-      setResponse(
-        "// There was an error with the request. Please contact support@clerk.dev"
-      );
-    }
-  };
   return (
-    <div className={styles.backend}>
-      <h2>API request example</h2>
-      <div className={styles.card}>
-        <button
-          target="_blank"
-          rel="noopener"
-          className={styles.cardContent}
-          onClick={() => makeRequest()}
-        >
-          <img src="/icons/server.svg" />
+    <>
+      <header className="header">
+        <div className="header__text-box">
           <div>
-            <h3>fetch('/api/getAuthenticatedUserId')</h3>
-            <p>
-              Retrieve the user ID of the signed in user, or null if there is no
-              user
-            </p>
+            <h1 className="heading-primary">
+              <span className="heading-primary--main">
+                Code. Build. Repeat.
+              </span>
+              <span className="heading-primary--sub">
+                Learn to code for free.
+              </span>
+            </h1>
+            <Link href="/courses">
+              <a className="btn-main">
+                <span style={{ marginRight: "10px" }}>Start Learning</span>
+                <ArrowRight size={32} />
+              </a>
+            </Link>
           </div>
-          <div className={styles.arrow}>
-            <img src="/icons/download.svg" />
+        </div>
+
+        <div className="header__img-box">
+          <Image
+            src={YouTubeIcon}
+            placeholder="blur"
+            alt="YouTube"
+            width="300"
+            height="300"
+          />
+        </div>
+      </header>
+
+      <section className="section-one">
+        <h2 className="heading-secondary">
+          Why web<span style={{ color: "#ec3944" }}>CodeCamp</span> ?
+        </h2>
+        <div className="section-grid one">
+          <div className="card">
+            <Image src="/images/youtube.png" alt="" width="100" height="100" />
+            <p className="card__text">Curated Crash Courses.</p>
           </div>
-        </button>
-      </div>
-      <h4>
-        Response
-        <em>
-          <SignedIn>
-            You are signed in, so the request will return your user ID
-          </SignedIn>
-          <SignedOut>
-            You are signed out, so the request will return null
-          </SignedOut>
-        </em>
-      </h4>
-      <pre>
-        <code className="language-js">{response}</code>
-      </pre>
-      <h4>pages/api/getAuthenticatedUserId.js</h4>
-      <pre>
-        <code className="language-js">{apiSample}</code>
-      </pre>
-    </div>
+
+          <div className="card">
+            <Image src="/images/calendar.png" alt="" width="100" height="100" />
+            <p className="card__text">Learn At Your Own Pace.</p>
+          </div>
+
+          <div className="card">
+            <Image src="/images/trophy.png" alt="" width="100" height="100" />
+            <p className="card__text">Earn a Certificate.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-two">
+        <h2 className="heading-secondary">
+          What You'll <span style={{ color: "#ec3944" }}>Learn</span>
+        </h2>
+        <div className="section-grid two">
+          {courseList.map((course) => {
+            return (
+              <div className="card" key={course.id}>
+                <img
+                  src={`/images/${course.image}`}
+                  alt={course.image}
+                  width="100"
+                  height="100"
+                />
+                <p className="card__text">{course.name}</p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+      {/* <section className="section-three">
+        <Image
+          src="/images/next.png"
+          width="300"
+          height="300"
+          alt="nextjs"
+        />
+        <div className="section__text-box">
+          <p className="section-three__text">
+            Built using {" "}
+            <span style={{ color: "#ec3944", fontWeight: "700" }}>NEXT.JS</span>{" "}
+            .
+          </p>
+          <a
+            href="https://nextjs.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="section-three__link"
+          >
+            NEXT.JS
+          </a>
+        </div>
+      </section> */}
+      <footer className="footer">
+        <p style={{ fontSize: "25px" }}>
+          Made with{" "}
+          <span role="img" aria-label="love" style={{ color: "#ec3944" }}>
+            ❤️️
+          </span>{" "}
+          By{" "}
+          <a
+            href="https://instagram.com/zaidmukaddam.c"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="creator"
+          >
+            Zaid
+          </a>
+        </p>
+      </footer>
+    </>
   );
-};
-
-// Footer component
-const Footer = () => (
-  <footer className={styles.footer}>
-    Powered by{" "}
-    <a
-      href="https://clerk.dev?utm_source=github&utm_medium=starter_repos&utm_campaign=nextjs_starter"
-      target="_blank"
-    >
-      <img src="/clerk.svg" alt="Clerk.dev" className={styles.logo} />
-    </a>
-    +
-    <a href="https://nextjs.org/" target="_blank" rel="noopener">
-      <img src="/nextjs.svg" alt="Next.js" className={styles.logo} />
-    </a>
-  </footer>
-);
-
-const Home = () => (
-  <div className={styles.container}>
-    <Head>
-      <title>Create Next App</title>
-      <link rel="icon" href="/favicon.ico" />
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-      ></meta>
-    </Head>
-    <Main />
-    <Footer />
-  </div>
-);
+}
 
 export default Home;
